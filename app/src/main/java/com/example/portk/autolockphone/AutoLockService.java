@@ -23,9 +23,9 @@ public class AutoLockService extends Service {
     public void onCreate() {
        DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
 
-        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        PowerManager.WakeLock mWakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "mytag");
-        ComponentName componentName = new ComponentName(this, AutoLockService.class);
+//        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+//        PowerManager.WakeLock mWakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "mytag");
+//        ComponentName componentName = new ComponentName(this, AutoLockService.class);
 
 
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -91,13 +91,13 @@ class sensorListener implements SensorEventListener{
                         return;
                     ispocket=true;
                     System.out.println("口袋模式");
-                    mWakeLock.release();
+                    dpm.lockNow();
                 }else{
                     if(!ispocket)
                         return;
                     ispocket=false;
                     System.out.println("不是口袋模式");
-                    mWakeLock.acquire();
+                    //mWakeLock.acquire();
                 }
                 break;
         }

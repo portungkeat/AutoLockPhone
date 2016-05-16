@@ -24,19 +24,19 @@ public class ScrollingActivity extends AppCompatActivity {
 
         ComponentName componentName = new ComponentName(this, AutoLockService.class);
         if (!dpm.isAdminActive(componentName)){
-            Intent intent = new Intent();
-                        // 指定动作名称
-                        intent.setAction(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-                        // 指定给哪个组件授权
-                        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
-                        startActivity(intent);
+            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "自动锁屏");
+            startActivity(intent);
         }
-
 
         FloatingActionButton start= (FloatingActionButton) this.findViewById(R.id.start);
         FloatingActionButton stop= (FloatingActionButton) this.findViewById(R.id.stop);
         start.setOnClickListener(new clickListent());
         stop.setOnClickListener(new clickListent());
+
+        stop.setEnabled(false);
+
     }
 
     class clickListent implements View.OnClickListener {
